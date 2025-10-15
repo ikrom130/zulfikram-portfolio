@@ -21,9 +21,12 @@
                     <button type="submit" class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
                 </div>
             </form>
+     
+            {{-- Top pagintae elements --}}
+            {{ $posts->links() }}
 
-            <div class="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
-                @foreach ($posts as $post)
+            <div class=" mt-4 grid gap-8 lg:grid-cols-3 md:grid-cols-2">
+                @forelse ($posts as $post)
                     <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                             <a href="/services?category={{ $post->category->slug }}">
@@ -56,8 +59,17 @@
                             </a>
                         </div>
                     </article>
-                @endforeach                
+                @empty
+                    <div class="mx-auto">
+                        <p class="my-2.5 text-center text-gray-500">No post found.</p>
+                        <a href="/services" class="hover:text-blue-600 underline">&laquo Back to all post.</a>
+                    </div>
+                @endforelse                
             </div>  
+            <div>
+                {{-- Bottom pagintae elements --}}
+                {{ $posts->links() }}
+            </div>
         </div>
 
     </x-layout>

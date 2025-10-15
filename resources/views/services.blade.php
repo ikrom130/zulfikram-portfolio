@@ -4,6 +4,12 @@
         <div class="py-4 px-4 mx-auto max-w-screen-xl lg:px-6">
 
             <form class="mb-8 max-w-md mx-auto">   
+                @if (request('category'))
+                    <input type="hidden" name="category" value="{{ request('category') }}">
+                @endif
+                @if (request('author'))
+                    <input type="hidden" name="author" value="{{ request('author') }}">
+                @endif
                 <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -20,7 +26,7 @@
                 @foreach ($posts as $post)
                     <article class="p-6 bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
                         <div class="flex justify-between items-center mb-5 text-gray-500">
-                            <a href="/categories/{{ $post->category->slug }}">
+                            <a href="/services?category={{ $post->category->slug }}">
                                 <span class="{{ $post->category->color }} text-gray-700 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
                                     {{ $post->category->name }}
                                 </span>
@@ -36,7 +42,7 @@
                             {{ Str::limit($post['body'], 100) }}
                         </p>
                         <div class="flex justify-between items-center">
-                            <a href="/authors/{{ $post->author->username }}">
+                            <a href="/services?author={{ $post->author->username }}">
                                 <div class="flex items-center space-x-4">
                                     <img class="w-7 h-7 rounded-full" src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Leos avatar" />
                                     <span class="font-medium text-sm dark:text-white">

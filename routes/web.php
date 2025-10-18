@@ -18,10 +18,7 @@ Route::get('/home', function () {
 });
 
 Route::get('/services', function () {
-    $posts = Post::latest()
-        ->filter(request(['search', 'category', 'author']))
-        ->paginate(5)
-        ->withQueryString();
+    $posts = Post::latest()->filter(request(['search', 'category', 'author']))->get();
 
     return view('services', ['title' => 'Service Page', 'posts' => $posts]);
 });
